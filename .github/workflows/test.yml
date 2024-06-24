@@ -10,6 +10,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install rclone
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rclone
+
+      - name: Verify rclone installation
+        run: rclone version
+
       - name: Setup SSH agent
         uses: webfactory/ssh-agent@v0.5.3
         with:
