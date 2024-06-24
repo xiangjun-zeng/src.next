@@ -36,10 +36,10 @@ jobs:
           echo 'type = sftp' >> $HOME/.config/rclone/rclone.conf
           echo 'host = ${{ secrets.STORAGE_HOST }}' >> $HOME/.config/rclone/rclone.conf
           echo 'user = storage' >> $HOME/.config/rclone/rclone.conf
-          echo 'key_pem = ${{ secrets.STORAGE_KEY }}' >> $HOME/.config/rclone/rclone.conf
+          echo 'key_pem = ${{ secrets.SSH_PRIVATE_KEY }}' >> $HOME/.config/rclone/rclone.conf
 
       - name: Print rclone config
         run: cat $HOME/.config/rclone/rclone.conf
 
       - name: Test rclone SSH connection
-        run: rclone ls cache:kiwibrowser-next-builds-arm/
+        run: rclone -vv ls cache:kiwibrowser-next-builds-arm/
