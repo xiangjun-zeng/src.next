@@ -1,4 +1,4 @@
-name: Test SSH Key and rclone
+name: Test SSH Key and rclone v2
 
 on: [push]
 
@@ -23,23 +23,4 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Export SSH_AUTH_SOCK
-        run: echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> $GITHUB_ENV
-
-      - name: Verify SSH setup
-        run: ssh-add -l || echo "No keys added to SSH agent"
-
-      - name: Creating rclone config
-        run: |
-          mkdir -p $HOME/.config/rclone/
-          echo '[cache]' > $HOME/.config/rclone/rclone.conf
-          echo 'type = sftp' >> $HOME/.config/rclone/rclone.conf
-          echo 'host = ${{ secrets.STORAGE_HOST }}' >> $HOME/.config/rclone/rclone.conf
-          echo 'user = storage' >> $HOME/.config/rclone/rclone.conf
-          echo 'key_pem = ${{ secrets.SSH_PRIVATE_KEY }}' >> $HOME/.config/rclone/rclone.conf
-
-      - name: Print rclone config
-        run: cat $HOME/.config/rclone/rclone.conf
-
-      - name: Test rclone SSH connection
-        run: rclone -vv ls cache:kiwibrowser-next-builds-arm/
+      - name: Export SSH_AU
